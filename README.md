@@ -2,7 +2,7 @@
 
 <img src="http://i6.photobucket.com/albums/y207/elicecafe/202.jpg" align="center"/>
 
-A scala interface for provisioning [heroku.com][heroku] hosted application
+A scala interface for provisioning [heroku.com][heroku] hosted applications.
 
 ## usage
 
