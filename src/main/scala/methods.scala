@@ -13,11 +13,11 @@ trait Methods { self: Client =>
 
       protected [this]
       case class LogBuilder(app: String,
-                           linesval: Int = 20,
-                           psval: Option[String] = None,
-                           srcval: Option[String] = None,
-                           tailval: Option[Int] = None)
-          extends Client.Completion {
+                            linesval: Int = 20,
+                            psval: Option[String] = None,
+                            srcval: Option[String] = None,
+                            tailval: Option[Int] = None)
+        extends Client.Completion {
         def lines(n: Int) = copy(linesval = n)
         def ps(name: String) = copy(psval = Some(name))
         def source(src: String) = copy(srcval = Some(src))
@@ -70,9 +70,7 @@ trait Methods { self: Client =>
 
         /** https://api-docs.heroku.com/collaborators#POST/apps/collaborators */
         def add(email: String) =
-          complete(base.POST << Map(
-            "collaborator[email]" -> email
-          ))
+          complete(base.POST << Map("collaborator[email]" -> email))
 
         /** https://api-docs.heroku.com/collaborators#DELETE/apps/collaborators */
         def remove(email: String) =
@@ -114,9 +112,7 @@ trait Methods { self: Client =>
 
         /** https://api-docs.heroku.com/domains#POST/apps/domains */
         def add(domain: String) =
-          complete(base.POST << Map(
-            "domain_name[domain]" -> domain
-          ))
+          complete(base.POST << Map("domain_name[domain]" -> domain))
 
         /** https://api-docs.heroku.com/domains#DELETE/apps/domains */
         def remove(domain: String) =
@@ -139,9 +135,7 @@ trait Methods { self: Client =>
 
         /** https://api-docs.heroku.com/releases#POST/apps/releases */
         def rollback(release: String) =
-          complete(base.POST << Map(
-            "rollback" -> release
-          ))
+          complete(base.POST << Map("rollback" -> release))
       }
 
       protected [this]
