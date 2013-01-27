@@ -2,7 +2,7 @@ organization := "me.lessis"
 
 name := "hiroko"
 
-version := "0.1.0-SNAPSHOT"
+version := "0.1.0"
 
 description := "An interface for the Heroku API"
 
