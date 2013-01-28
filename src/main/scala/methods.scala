@@ -225,12 +225,19 @@ trait Methods { self: Client =>
     
     def apply(name: String) = App(name)
 
+    protected [this]
+    case class AppCreator(nameval: Option[String] = None, stackval: Option[String] = None)
+       extends Client.Completion {
+      def name(n: String) = copy(nameval = Some(n))
+      def stack(s: String) = copy(stackval = Some(s))
+      override def apply[T](hand: Client.Handler[T]) =
+        request(base.POST << pmap)(hand)
+      private def pmap = Map.empty[String, String] ++
+                           nameval.map("app[name]" -> _) ++
+                           stackval.map("app[stack]" -> _)
+    }
     /** https://api-docs.heroku.com/apps#POST/apps */
-    def create(name: Option[String] = None, stack: Option[String] = None) =
-      complete(
-          base.POST << Map.empty[String, String] ++
-                       name.map("app[name]" -> _) ++
-                       stack.map("app[stack]" -> _))
+    def create = AppCreator()
   }
 
   protected [this]
