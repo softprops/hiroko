@@ -1,0 +1,3 @@
+## Initial Release
+
+In the same vein as [hubcat](https://github.com/softprops/hubcat), hiroko provides a simple client interface for [heroku](http://www.heroku.com/) cloud application platform [api](https://api-docs.heroku.com/).
