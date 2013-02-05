@@ -7,9 +7,8 @@ trait Methods { self: Client =>
 
   object Apps extends Client.Completion {
     private [this] def base = api / "apps"
-    protected [this]
-    case class App(name: String)
-       extends Client.Completion {
+    protected [this] case class App(name: String)
+      extends Client.Completion {
 
       protected [this]
       case class LogBuilder(app: String,
@@ -34,8 +33,7 @@ trait Methods { self: Client =>
           request(api / "apps" / app / "logs" <<? pmap)(handler)
       }
 
-      protected [this]
-      object Config
+      protected [this] object Config
       extends Client.Completion {
         private [this] def base =
           api / "apps" / name / "config_vars"
@@ -58,8 +56,7 @@ trait Methods { self: Client =>
           complete(base.DELETE / key)
       }
 
-      protected [this]
-      object Collaborators
+      protected [this] object Collaborators
       extends Client.Completion {
         private [this] def base =
           api / "apps" / name / "collaborators"
@@ -77,8 +74,7 @@ trait Methods { self: Client =>
           complete(base.DELETE / email)
       }
   
-      protected [this]
-      object Addons
+      protected [this] object Addons
       extends Client.Completion {
         private [this] def base =
           api / "apps" / name / "addons"
@@ -100,8 +96,7 @@ trait Methods { self: Client =>
           complete(base.DELETE / addon)
       }
 
-      protected [this]
-      object Domains
+      protected [this] object Domains
       extends Client.Completion {
         private [this] def base = 
           api / "apps" / name / "domains"
@@ -119,8 +114,7 @@ trait Methods { self: Client =>
           complete(base.DELETE / domain)
       }
 
-      protected [this]
-      object Releases
+      protected [this] object Releases
       extends Client.Completion {
         private [this] def base =
           api / "apps" / name / "releases"
@@ -138,8 +132,7 @@ trait Methods { self: Client =>
           complete(base.POST << Map("rollback" -> release))
       }
 
-      protected [this]
-      object Processes
+      protected [this] object Processes
       extends Client.Completion {
         private [this] def base = 
           api / "apps" / name / "ps"
@@ -165,8 +158,7 @@ trait Methods { self: Client =>
           complete(base.POST / "scale" << Map("type" -> typ, "qty" -> n.toString))
       }
       
-      protected [this]
-      object Stacks
+      protected [this] object Stacks
       extends Client.Completion {
         private [this] def base =
           api / "apps" / name / "stack"
@@ -225,8 +217,8 @@ trait Methods { self: Client =>
     
     def apply(name: String) = App(name)
 
-    protected [this]
-    case class AppCreator(nameval: Option[String] = None, stackval: Option[String] = None)
+    protected [this] case class AppCreator(nameval: Option[String] = None,
+                                           stackval: Option[String] = None)
        extends Client.Completion {
       def name(n: String) = copy(nameval = Some(n))
       def stack(s: String) = copy(stackval = Some(s))
@@ -240,8 +232,7 @@ trait Methods { self: Client =>
     def create = AppCreator()
   }
 
-  protected [this]
-  object Keys
+  protected [this] object Keys
   extends Client.Completion {
     private [this] def base = api / "user" / "keys"
 
