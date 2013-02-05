@@ -34,8 +34,8 @@ val apps = for {
 apps.foreach(println)
 
 val created = for {
-  JObject(js) <- cli.apps.create(as.json4s.Json)()
-  ("name", JString(name))
+  JObject(fs)             <- cli.apps.create(as.json4s.Json)()
+  ("name", JString(name)) <- fs
 } yield name
 
 created.headOption { name =>
