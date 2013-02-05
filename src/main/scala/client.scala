@@ -1,12 +1,12 @@
 package hiroko
 
 import dispatch._
-import com.ning.http.client.{ RequestBuilder, Response }
+import com.ning.http.client.{ AsyncHandler, RequestBuilder, Response }
 
 object Client {
   val DefaultHeaders = Map("Accept" -> "application/json",
                            "User-Agent" -> "Hiroko/%s".format(BuildInfo.version))
-  type Handler[T] = (Response => T)
+  type Handler[T] = AsyncHandler[T]
   trait Completion {
     def apply[T](handler: Client.Handler[T]): Promise[T]
   }
