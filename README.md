@@ -4,6 +4,20 @@
 
 A scala interface for provisioning [heroku.com][heroku] hosted applications.
 
+## install
+
+Via sbt
+
+Append the following to your build definition
+
+    libraryDependencies += "me.lessis" %% "hiroko" % "0.1.0"
+
+Via [ls-sbt](http://ls.implicit.ly/#installing)
+
+In your sbt terminal type
+
+    > ls-install hiroko
+
 ## usage
 
 Grab your [api key](https://dashboard.heroku.com/account).
