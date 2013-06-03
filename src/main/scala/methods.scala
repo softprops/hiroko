@@ -2,6 +2,9 @@ package hiroko
 
 import dispatch._
 import com.ning.http.client.RequestBuilder
+import org.json4s.JsonDSL._
+import org.json4s.native.Printer.compact
+import org.json4s.native.JsonMethods.render
 
 trait Methods { self: Client =>
 
@@ -11,22 +14,23 @@ trait Methods { self: Client =>
       extends Client.Completion {
 
       protected [this]
-      case class LogBuilder(app: String,
-                            linesval: Int = 20,
-                            psval: Option[String] = None,
-                            srcval: Option[String] = None,
-                            tailval: Option[Int] = None)
+      case class LogBuilder(
+        app: String,
+        _lines: Int = 20,
+        _ps: Option[String] = None,
+        _src: Option[String] = None,
+        _tail: Option[Int] = None)
         extends Client.Completion {
-        def lines(n: Int) = copy(linesval = n)
-        def ps(name: String) = copy(psval = Some(name))
-        def source(src: String) = copy(srcval = Some(src))
-        def tail = copy(tailval = Some(1))
+        def lines(n: Int) = copy(_lines = n)
+        def ps(name: String) = copy(_ps = Some(name))
+        def source(src: String) = copy(_src = Some(src))
+        def tail = copy(_tail = Some(1))
         private def pmap =
           Map("logplex" -> "true",
-             "num" -> linesval.toString) ++
-              tailval.map("tail" -> _.toString)
-              psval.map("ps" -> _) ++
-              srcval.map("source" -> _)
+             "num" -> _lines.toString) ++
+              _tail.map("tail" -> _.toString)
+              _ps.map("ps" -> _) ++
+              _src.map("source" -> _)
 
         /** @return a url for accessing application logs */
         override def apply[T](handler: Client.Handler[T]) =
@@ -44,9 +48,6 @@ trait Methods { self: Client =>
 
         /** https://api-docs.heroku.com/config#PUT/apps/config_vars */
         def set(vars: (String, String)*) = {
-          import org.json4s.JsonDSL._
-          import org.json4s.native.Printer.compact
-          import org.json4s.native.JsonMethods.render
           var map = vars.toMap
           complete(base.PUT.setBody(compact(render(map))))
         }
