@@ -2,14 +2,14 @@ organization := "me.lessis"
 
 name := "hiroko"
 
-version := "0.1.0"
+version := "0.1.2-SNAPSHOT"
 
 description := "An interface for the Heroku API"
 
 scalacOptions += "-deprecation"
 
 libraryDependencies ++= Seq(
-  "net.databinder.dispatch" %% "json4s-native" % "0.9.5",
+  "net.databinder.dispatch" %% "dispatch-json4s-native" % "0.10.1",
   "org.slf4j" % "slf4j-jdk14" % "1.6.2")
 
 seq(lsSettings: _*)
@@ -24,9 +24,9 @@ buildInfoKeys := Seq[BuildInfoKey](version)
 
 buildInfoPackage := "hiroko"
 
-crossScalaVersions ++= Seq(
-  "2.8.1", "2.8.2", "2.9.0-1",
-  "2.9.1", "2.9.1-1", "2.9.2")
+crossScalaVersions ++= Seq("2.9.3", "2.10.0", "2.10.1")
+
+scalaVersion := "2.9.3"
 
 publishTo := Some(Opts.resolver.sonatypeStaging)
 
