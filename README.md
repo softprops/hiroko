@@ -58,6 +58,17 @@ created.headOption { name =>
 }
 ```
 
+For a more interesting example you can also `tail` an applications logs directly.
+
+```scala
+import dispatch._, dispatch.Defaults._
+import hiroko._
+import org.json4s._
+for {
+ log <- Client(apiKey).app(appName).logs.tail(as.String)
+ prom <- Http(url(log) > as.stream.Lines(println))
+} yield prom
+```
 
 Doug Tangren (softprops) 2013
 
